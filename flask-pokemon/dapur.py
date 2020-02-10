@@ -12,7 +12,9 @@ def getRecomendation(inputFav):
     indexFav = df[df['Name'].apply(lambda a : a.lower()) == input].index
     
     if len(indexFav) == 0:
-        print("Nama Pokemon tidak ditemukan") 
+        print("Nama Pokemon tidak ditemukan")
+        
+        return False 
     else:
         indexFav = indexFav[0]
         print(indexFav)
@@ -30,6 +32,7 @@ def getRecomendation(inputFav):
             name.append(df.iloc[i]['Name'].lower())
             print("-"*50)
         return id_rekom, name
+
 daftarID, daftarNama = getRecomendation('Pidgeotto')
 
 url_only = "https://pokeapi.co/api/v2/pokemon/"
@@ -46,7 +49,8 @@ def getLinkSpriter(nama):
 getLinkSpriter('pikachu')
 
 def getType(nama):
-    x = df[df['Name'] == nama]
+    x = df[df['Name'] == nama.capitalize()]
+    print(x)
     x = x['Type 1'].to_numpy()[0]
     return x
 
@@ -62,8 +66,10 @@ tipe2 = getTypeViaID(2)
 print(tipe2)
 
 def getLegend(nama):
-    x = df[df['Name'] == nama]
-    x = x['Legendary'].to_numpy()[0]
+    x = df[df['Name'] == nama.capitalize()]
+    print(x)
+    # x = x['Legendary'].to_numpy()[0]
+    x = x['Legendary'].get_values()[0]
     return x
 
 legend = getLegend('Pikachu')
